@@ -1,0 +1,132 @@
+﻿<html>
+<head>
+    <title>Country</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="lib/css/bootstrap.min.css">
+    <link rel="stylesheet" href="lib/css/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css" />
+
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Get any country information, by country name, country capital city or country call code">
+    <meta name="author" content="Antoine Sader">
+</head>
+<body ng-app="myApp" ng-controller="myCtrl">
+    <section id="one">
+        <form class="form-signin">
+            <h1 class="h3 mb-3 font-weight-normal animated pulse infinite">Get any country information by: </h1>
+            <hr />
+            <div class="checkbox mb-3">
+                <label>
+                    <input type="radio" ng-model="value" ng-change="checkBoxesChange(value)" id="countryName" value="name" name="typeSearch" required> Country Name
+                </label>
+                <label>
+                    <input type="radio" ng-model="value" ng-change="checkBoxesChange(value)" id="countryCapitalCity" value="cap" name="typeSearch" required> Country Capital City
+                </label>
+                <label>
+                    <input type="radio" ng-model="value" ng-change="checkBoxesChange(value)" id="countryCallCode" value="cod" name="typeSearch" required> Country Call Code
+                </label>
+
+            </div>
+            <div class="form-group" ng-show="checkBoxes" autocomplete="off">
+                <p style="color:white; display:none" class="bg-danger" id="wordValWarning">You must select one of the options</p>
+                <!--<input type="text" id="word" ng-model="word" ng-change="wordChange()" class="form-control" placeholder="Country" required autofocus>-->
+                <input id="Country" ng-model="Country" ng-change="wordChange(Country)" placeholder="Country"
+                       ng-show="shownameCountry" class="form-control autocomplete" type="text"
+                       required autofocus />
+
+                <input id="capital" ng-model="capital" ng-change="wordChange(capital)" placeholder="Capital City"
+                       ng-show="showcapital" class="form-control autocomplete" type="text"
+                       required autofocus />
+
+                <input id="callCode" ng-model="callCode" ng-change="wordChange(callCode)" placeholder="Call Code"
+                       ng-show="showCallCode" class="form-control autocomplete" type="text"
+                       required autofocus />
+
+            </div>
+
+            <button class="btn btn-lg btn-success btn-block disabled" id="submit">Go </button>
+            <hr>
+            <label class="mt-3 mb-1">To raise your knowledge about the countries in the world, do you want to try a quick test? Try answering 15 random questions and share results. </label>
+            <a class="btn btn-lg btn-success btn-block " href="quiz.html">Start test </a>
+
+            <hr>
+            <p class="mt-5 mb-1 text-muted">&copy; Sader 2020 Using REST Countries </p>
+
+        </form>
+    </section>
+    <section class="two">
+        <div id="results">
+            <div class="row">
+                <div id="div1 card-group" class="col-md-12">
+                    <div class="card" style="height: auto" ng-repeat="countr in countries track by $index">
+                        <div class="card-header">
+                            <div class="row">
+
+                                <div class="col-9">
+                                    <p><b>Country: </b></p>  <p> {{countr.name}} </p>
+
+                                </div>
+                                <div class="col-3">
+                                    <img src="https://www.countryflags.io/{{countr.alpha2Code}}/shiny/64.png">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="">
+                            <div class="row">
+                                <div class="col-12 col-md-6"> <p><b> Domain: </b> </p>  <p> {{countr.topLevelDomain}}</p> </div>
+                                <div class="col-12 col-md-6"><p><b>alpha2Code: </b></p>  <p> {{countr.alpha2Code}}</p> </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-md-6"><p><b>alpha3Code: </b></p>  <p> {{countr.alpha3Code}}</p> </div>
+                                <div class="col-12 col-md-6"><p><b>calling Code: </b></p>  <p> {{countr.callingCodes}}</p> </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-md-6"><p><b>region: </b></p>  <p> {{countr.region}}</p> </div>
+                                <div class="col-12 col-md-6"><p><b>sub region: </b></p>  <p> {{countr.subregion}}</p> </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-md-6"><p><b>population: </b></p>  <p> {{countr.population}}</p> </div>
+                                <div class="col-12 col-md-6"><p><b>area: </b></p>  <p> {{countr.area}}</p> </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-md-6"><p><b>timezones: </b></p>  <p>{{countr.timezones}}</p> </div>
+                                <div class="col-12 col-md-6"><p><b>borders: </b></p>  <p> {{countr.borders}}</p> </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-md-6"><p><b>nativeName: </b></p>  <p> {{countr.nativeName}}</p> </div>
+                                <div class="col-12 col-md-6"><p><b>currencies: </b></p>  <p> {{countr.currencies}}</p> </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-md-6"><p><b>languages: </b></p>  <p> {{countr.languages}}</p> </div>
+                                <div class="col-12 col-md-6"><p><b>translations: </b></p>  <p> {{countr.translations}}</p> </div>
+                            </div>
+
+                        </div>
+                        <div class="card-footer">
+                            <button id="moreBtn" type="button" ng-show="$index == countries.length - 1" ng-click="showOne()" class="btn btn-primary"> Search other country </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p class="mt-5 mb-1 text-muted">&copy; Sader 2020 Using REST Countries </p>
+
+    </section>
+    <footer class="footer">
+
+    </footer>
+    <script src="lib/js/jquery.min.js"></script>
+    <script src="lib/js/popper.min.js"></script>
+    <script src="lib/js/bootstrap.min.js"></script>
+
+    <script src="lib/js/angular.min.js"></script>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script>
+
+    <script type="text/javascript" src="script.min.js"></script>
+</body>
+
+</html>
